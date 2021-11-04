@@ -1,6 +1,6 @@
-provider "heroku/heroku" {}
+provider "heroku" {}
 
-module "heroku" {
+module "heroku-app" {
   source = "./modules/heroku-app"
 
   app_name                  = var.app_name

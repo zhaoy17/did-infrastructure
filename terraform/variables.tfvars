@@ -1,4 +1,4 @@
-app_name      = "did-api-demo"
+app_name      = "zhaoy17-did-api-demo"
 app_region    = "us"
 postgres_plan = "hobby-dev"
 config_vars = {

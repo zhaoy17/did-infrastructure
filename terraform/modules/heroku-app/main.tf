@@ -1,7 +1,6 @@
 resource "heroku_app" "app" {
   name                  = var.app_name
   region                = var.app_region
-  stack                 = var.app_stack
   config_vars           = var.app_config_vars
   sensitive_config_vars = var.app_sensitive_config_vars
   organization {

@@ -1,18 +1,21 @@
 resource "heroku_app" "app" {
-  name = var.appname
-  region = var.appregion
-  config_vars = var.config_vars
-  sensitive_config_vars = var.sensitive_config_vars
+  name                  = var.app_name
+  region                = var.app_region
+  stack                 = var.app_stack
+  config_vars           = var.app_config_vars
+  sensitive_config_vars = var.app_sensitive_config_vars
+  organization {
+    name = var.app_team_name
+  }
 }
 
-variable "postgresql_plan" {
-  type        = string
-  default     = "hobby-dev"
-  description = "The Postgres add-on plan type."
+resource "heroku_addon" "database" {
+  app  = heroku_app.app.name
+  plan = "heroku-postgresql:${var.postgres_plan}"
 }
 
 resource "heroku_addon" "papertrail" {
-  app  = heroku_app.app.id
+  app  = heroku_app.app.name
   plan = "papertrail:${var.papertrail_plan}"
 }
 

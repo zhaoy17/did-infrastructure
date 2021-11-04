@@ -1,6 +1,7 @@
 variable "app_name" {
   type        = string
   description = "the name for the application"
+  default = "did-api-demo"
 }
 
 variable "app_region" {
@@ -14,16 +15,21 @@ variable "postgres_plan" {
   default = "heroku-postgresql:hobby-dev"
 }
 
-variable "app_config_vars" {
+variable "config_vars" {
   type        = map(string)
   description = "App environment variables, which will not be printed."
+  default = {
+    "key" = "value"
+  }
 }
 
-variable "app_sensitive_config_vars" {
+variable "sensitive_config_vars" {
   type        = map(string)
   description = "App environment variables."
   sensitive   = true
-  default     = null
+  default     = {
+    "secretKey" = "secretValue"
+  }
 }
 
 variable "web_dyno_size" {
@@ -36,4 +42,10 @@ variable "web_dyno_quantity" {
   type        = number
   default     = 1
   description = "The web server dyno quantity."
+}
+
+variable "postgresql_plan" {
+  type        = string
+  default     = "hobby-dev"
+  description = "The Postgres add-on plan type."
 }

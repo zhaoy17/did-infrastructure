@@ -3,9 +3,6 @@ resource "heroku_app" "app" {
   region                = var.app_region
   config_vars           = var.app_config_vars
   sensitive_config_vars = var.app_sensitive_config_vars
-  organization {
-    name = var.app_team_name
-  }
 }
 
 resource "heroku_addon" "database" {

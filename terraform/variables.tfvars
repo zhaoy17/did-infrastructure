@@ -1,6 +1,6 @@
 app_name      = "did-api-demo"
 app_region    = "us"
-postgres_plan = "heroku-postgresql:hobby-dev"
+postgres_plan = "hobby-dev"
 config_vars = {
   var1 = "value1"
 }

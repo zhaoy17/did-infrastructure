@@ -11,7 +11,7 @@ variable "app_region" {
 
 variable "postgres_plan" {
   type    = string
-  default = "heroku-postgresql:hobby-dev"
+  default = "hobby-dev"
 }
 
 variable "config_vars" {
@@ -37,10 +37,4 @@ variable "web_dyno_quantity" {
   type        = number
   default     = 1
   description = "The web server dyno quantity."
-}
-
-variable "postgresql_plan" {
-  type        = string
-  default     = "hobby-dev"
-  description = "The Postgres add-on plan type."
 }

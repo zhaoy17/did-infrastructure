@@ -28,6 +28,7 @@ jobs:
           working_directory: "./terraform"
           name: terraform
           command: |
+            pwd
             terraform apply -auto-approve tfapply
       - persist_to_workspace:
           root: .
@@ -75,6 +76,8 @@ workflows:
             - hold-apply
 
   plan_destroy_aply:
+    triggers:
+
     jobs:
       - plan-destroy
       - hold-destroy:

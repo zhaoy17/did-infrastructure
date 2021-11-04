@@ -11,7 +11,6 @@ jobs:
           working_directory: "./terraform"
           name: terraform init & plan
           command: |
-            pwd
             terraform init -input=false
             terraform plan -out tfapply -var-file variables.tfvars
       - persist_to_workspace:

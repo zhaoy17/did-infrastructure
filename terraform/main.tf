@@ -1,4 +1,4 @@
-provider "heroku" {}
+provider "heroku/heroku" {}
 
 module "heroku" {
   source = "./modules/heroku-app"

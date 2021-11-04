@@ -10,9 +10,3 @@ resource "heroku_addon" "database" {
   plan = "heroku-postgresql:${var.postgres_plan}"
 }
 
-resource "heroku_formation" "web-app" {
-  app      = heroku_app.app.id
-  type     = "web"
-  size     = var.web_dyno_size
-  quantity = var.web_dyno_quantity
-}

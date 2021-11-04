@@ -10,11 +10,6 @@ resource "heroku_addon" "database" {
   plan = "heroku-postgresql:${var.postgres_plan}"
 }
 
-resource "heroku_addon" "papertrail" {
-  app  = heroku_app.app.name
-  plan = "papertrail:${var.papertrail_plan}"
-}
-
 resource "heroku_formation" "web-app" {
   app      = heroku_app.app.id
   type     = "web"

@@ -1,7 +1,6 @@
 variable "app_name" {
   type        = string
   description = "the name for the application"
-  default = "did-api-demo"
 }
 
 variable "app_region" {
@@ -18,18 +17,14 @@ variable "postgres_plan" {
 variable "config_vars" {
   type        = map(string)
   description = "App environment variables, which will not be printed."
-  default = {
-    "key" = "value"
-  }
+  default     = {}
 }
 
 variable "sensitive_config_vars" {
   type        = map(string)
   description = "App environment variables."
   sensitive   = true
-  default     = {
-    "secretKey" = "secretValue"
-  }
+  default     = {}
 }
 
 variable "web_dyno_size" {

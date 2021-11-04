@@ -35,11 +35,11 @@ jobs:
             - .
 
   plan-destroy:
+    working_directory: /tmp/did
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
       - run:
           working_directory: "./terraform"
           name: terraform create destroy plan

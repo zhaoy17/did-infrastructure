@@ -9,7 +9,7 @@ variable "app_region" {
   description = "the region of the application"
 }
 
-variable "postgresql_plan" {
+variable "postgres_plan" {
   type    = string
   default = "hobby-dev"
 }

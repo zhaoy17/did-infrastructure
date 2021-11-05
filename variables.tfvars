@@ -9,4 +9,3 @@ sensitive_config_vars = {
 }
 web_dyno_size     = "hobby"
 web_dyno_quantity = 1
-postgresql_plan   = "hobby-dev"

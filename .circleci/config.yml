@@ -33,26 +33,39 @@ jobs:
       - terraform/plan:
           backend_config_file: backend.hcl
           path: << parameters.root-module-path >>
-          persist-workspace:: true
   apply:
-    - terraform/apply:
+    parameters:
+      root-module-path:
+        type: string
+        default: '.'
+    executor: terraform/default
+    working_directory: ~/src
+    steps:
+      - checkout
+      - terraform/init:
+          backend: true
           backend_config_file: backend.hcl
           path: << parameters.root-module-path >>
-
+      - terraform/plan:
+          backend_config_file: backend.hcl
+          path: << parameters.root-module-path >>
+      - terraform/apply:
+          backend_config_file: backend.hcl
+          path: << parameters.root-module-path >>
 
 workflows:
   version: 2
   deploy_infrastructure_api_heroku_dev_us:
-    trigger:
-      - schedule:
+    jobs:
+      - plan:
           filters:
             branches:
               only:
                 - main
-    jobs:
-      - plan
-      - request-apply
+      - request-apply:
           type: approval
           requires:
             - plan
-      - apply
+      - apply: 
+          requires:
+            - request-apply

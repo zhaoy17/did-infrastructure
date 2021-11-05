@@ -41,6 +41,7 @@ jobs:
 
 
 workflows:
+  version: 2
   deploy_infrastructure_api_heroku_dev_us:
     trigger:
       - schedule:
@@ -52,5 +53,6 @@ workflows:
       - plan
       - request-apply
           type: approval
-          requires: plan
+          requires:
+            - plan
       - apply

@@ -17,6 +17,7 @@ variable "postgres_plan" {
 variable "app_config_vars" {
   type        = map(string)
   description = "App environment variables, which will not be printed."
+  default     = null
 }
 
 variable "app_sensitive_config_vars" {
@@ -24,4 +25,10 @@ variable "app_sensitive_config_vars" {
   description = "App environment variables."
   sensitive   = true
   default     = null
+}
+
+variable "app_buildpacks" {
+  type        = list(string)
+  description = "Buildpack names or URLs for the application"
+  default     = ["heroku/nodejs"]
 }

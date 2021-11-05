@@ -3,6 +3,8 @@ resource "heroku_app" "app" {
   region                = var.app_region
   config_vars           = var.app_config_vars
   sensitive_config_vars = var.app_sensitive_config_vars
+
+  buildpacks = var.app_buildpacks
 }
 
 resource "heroku_addon" "database" {

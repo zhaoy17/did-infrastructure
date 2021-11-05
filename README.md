@@ -6,11 +6,11 @@ This repository contains terraform scripts for provisioning application infrastr
 
 ## Terraform Modules
 ### Child Modules
-* **terraform/modules/heroku-app**: this module creates a heroku app with heroku postgres add-on attached to the app
-* **terraform/modules/digitalocean-spaces**: this module creates digital ocean spaces
+* **modules/heroku-app**: this module creates a heroku app with heroku postgres add-on attached to the app
+* **modules/digitalocean-spaces**: this module creates digital ocean spaces
 
 ### Root Module
-A functional DID server requires
+A functional DID server requires at least
 * a platform to host the DID server (Heroku app, AWS Elastic Beanstalk, Azure App Services)
 * a database server (postgres, mysql...)
 * an object storage server (AWS S3, Azure Blob Storage, DigitalOcean Spaces...)
@@ -18,4 +18,4 @@ A functional DID server requires
 You can create those resources by calling the children modules in **terraform/main.tf** (https://www.terraform.io/docs/language/modules/index.html).
 
 ### Provisioning Infrastructure
-* Circleci pipelines to create resources have been set up, which is triggered when modifications have been made to this repo
+* Circleci pipelines that create resources have been set up, which is triggered when modifications have been made to this repo

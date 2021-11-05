@@ -29,6 +29,7 @@ jobs:
       - terraform/plan:
           backend_config_file: backend.hcl
           path: << parameters.root-module-path >>
+          var_file: 'variables.tfvars'
   apply:
     parameters:
       root-module-path:
@@ -45,9 +46,11 @@ jobs:
       - terraform/plan:
           backend_config_file: backend.hcl
           path: << parameters.root-module-path >>
+          var_file: 'variables.tfvars'
       - terraform/apply:
           backend_config_file: backend.hcl
           path: << parameters.root-module-path >>
+          var_file: 'variables.tfvars'
 
 workflows:
   version: 2
@@ -62,6 +65,6 @@ workflows:
           type: approval
           requires:
             - plan
-      - apply: 
+      - apply:
           requires:
             - request-apply

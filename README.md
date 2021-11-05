@@ -1,6 +1,18 @@
-# Deployment Pipeline for DID-API
-This repository contains terraform scripts and pipelines configurations files for the DID-API project:
+# Terraform Scripts for DID
+This repository contains terraform scripts for provisioning application infrastructure for the DID (Date Interface Database: https://github.com/zhaoy17/did-api).
 
-https://github.com/zhaoy17/did-api
+## Terraform Modules
+### Child Modules
+* **terraform/modules/heroku-app**: this module creates a heroku app with heroku postgres add-on attached to the app
+* **terraform/modules/digitalocean-spaces**: this module creates digital ocean spaces
 
-This allows you deploy your did server to a cloud service provider easily. You can also use this repository as a template and modify the existing scripts based on your own needs.
+### Root Module
+A functional DID server requires
+* a platform to host the DID server (Heroku app, AWS Elastic Beanstalk, Azure App Services)
+* a database server (postgres, mysql...)
+* an object storage server (AWS S3, Azure Blob Storage, DigitalOcean Spaces...)
+
+You can create those resources by calling the children modules in **terraform/main.tf** (https://www.terraform.io/docs/language/modules/index.html).
+
+### Provisioning Infrastructure
+* Circleci pipelines to create resources have been set up, which is triggered when modifications have been made to this repo

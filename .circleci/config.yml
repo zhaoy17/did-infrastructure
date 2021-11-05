@@ -1,48 +1,56 @@
 version: 2.1
 
+orbs:
+  terraform: circleci/terraform@3.0.0
+
 jobs:
-  plan-apply:
-    working_directory: /tmp/did
-    docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+  plan:
+    parameters:
+      root-module-path:
+        type: string
+        default: '.'
+    executor: terraform/default
+    working_directory: ~/src
     steps:
       - checkout
       - run:
-          working_directory: "./terraform"
-          name: terraform init & plan
-          command: |
-            terraform init -input=false
-            terraform plan -out tfapply -var-file variables.tfvars
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
+          command: >-
+            echo "credentials \"app.terraform.io\" {token =
+            \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
+          name: Create .terraformrc file locally
+      - terraform/install:
+          arch: amd64
+          os: linux
+          terraform_version: 0.14.2
+      - terraform/fmt:
+          path: << parameters.root-module-path >>
+      - terraform/validate:
+          path: .
+      - terraform/init:
+          backend: true
+          backend_config_file: backend.hcl
+          path: << parameters.root-module-path >>
+      - terraform/plan:
+          backend_config_file: backend.hcl
+          path: << parameters.root-module-path >>
+          persist-workspace:: true
   apply:
-    docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          working_directory: "./terraform"
-          name: terraform
-          command: |
-            terraform apply -auto-approve tfapply
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+    - terraform/apply:
+          backend_config_file: backend.hcl
+          path: << parameters.root-module-path >>
+
 
 workflows:
-  version: 2
-  plan_approve_apply:
+  deploy_infrastructure_api_heroku_dev_us:
+    trigger:
+      - schedule:
+          filters:
+            branches:
+              only:
+                - main
     jobs:
-      - plan-apply
-      - hold-apply:
+      - plan
+      - request-apply
           type: approval
-          requires:
-            - plan-apply
-      - apply:
-          requires:
-            - hold-apply
+          requires: plan
+      - apply

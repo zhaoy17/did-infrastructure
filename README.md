@@ -1,6 +1,6 @@
 # Terraform Scripts for DID
 
-[![CircleCI](https://circleci.com/gh/zhaoy17/did-infrastructure/tree/main.svg?style=svg&circle-token=528ba362c5225e6abf3cf77d8f5657d25fc73dfd)](https://circleci.com/gh/zhaoy17/did-infrastructure/tree/main)
+[![CircleCI](https://circleci.com/gh/zhaoy17/did-infrastructure/tree/main.svg?style=shield&circle-token=528ba362c5225e6abf3cf77d8f5657d25fc73dfd)](https://circleci.com/gh/zhaoy17/did-infrastructure/tree/main)
 
 This repository contains terraform scripts for provisioning application infrastructure for the DID (Date Interface Database: https://github.com/zhaoy17/did-api).
 

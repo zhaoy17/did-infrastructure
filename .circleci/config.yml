@@ -18,16 +18,12 @@ jobs:
             echo "credentials \"app.terraform.io\" {token =
             \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
           name: Create .terraformrc file locally
-      - terraform/fmt:
-          path: << parameters.root-module-path >>
       - terraform/validate:
           path: .
       - terraform/init:
           backend: true
-          backend_config_file: backend.hcl
           path: << parameters.root-module-path >>
       - terraform/plan:
-          backend_config_file: backend.hcl
           path: << parameters.root-module-path >>
           var_file: 'variables.tfvars'
   apply:
@@ -39,16 +35,15 @@ jobs:
     working_directory: ~/src
     steps:
       - checkout
+      - run:
+          command: >-
+            echo "credentials \"app.terraform.io\" {token =
+            \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
+          name: Create .terraformrc file locally
       - terraform/init:
           backend: true
-          backend_config_file: backend.hcl
           path: << parameters.root-module-path >>
-      - terraform/plan:
-          backend_config_file: backend.hcl
-          path: << parameters.root-module-path >>
-          var_file: 'variables.tfvars'
       - terraform/apply:
-          backend_config_file: backend.hcl
           path: << parameters.root-module-path >>
           var_file: 'variables.tfvars'
 

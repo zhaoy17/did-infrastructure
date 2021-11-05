@@ -25,15 +25,3 @@ variable "app_sensitive_config_vars" {
   sensitive   = true
   default     = null
 }
-
-variable "web_dyno_size" {
-  type        = string
-  default     = "hobby"
-  description = "The web server dyno size."
-}
-
-variable "web_dyno_quantity" {
-  type        = number
-  default     = 1
-  description = "The web server dyno quantity."
-}

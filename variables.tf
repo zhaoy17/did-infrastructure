@@ -9,7 +9,7 @@ variable "app_region" {
   description = "the region of the application"
 }
 
-variable "postgres_plan" {
+variable "postgresql_plan" {
   type    = string
   default = "hobby-dev"
 }
@@ -25,16 +25,4 @@ variable "sensitive_config_vars" {
   description = "App environment variables."
   sensitive   = true
   default     = {}
-}
-
-variable "web_dyno_size" {
-  type        = string
-  default     = "hobby"
-  description = "The web server dyno size."
-}
-
-variable "web_dyno_quantity" {
-  type        = number
-  default     = 1
-  description = "The web server dyno quantity."
 }

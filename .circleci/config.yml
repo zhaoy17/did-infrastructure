@@ -8,7 +8,7 @@ jobs:
     parameters:
       root-module-path:
         type: string
-        default: '.'
+        default: "."
     executor: terraform/default
     working_directory: ~/src
     steps:
@@ -25,27 +25,24 @@ jobs:
           path: << parameters.root-module-path >>
       - terraform/plan:
           path: << parameters.root-module-path >>
-          var_file: 'variables.tfvars'
+          var_file: "variables.tfvars"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   apply:
     parameters:
       root-module-path:
         type: string
-        default: '.'
+        default: "."
     executor: terraform/default
     working_directory: ~/src
     steps:
-      - checkout
-      - run:
-          command: >-
-            echo "credentials \"app.terraform.io\" {token =
-            \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
-          name: Create .terraformrc file locally
-      - terraform/init:
-          backend: true
-          path: << parameters.root-module-path >>
+      - attach_workspace:
+          at: .
       - terraform/apply:
           path: << parameters.root-module-path >>
-          var_file: 'variables.tfvars'
+          var_file: "variables.tfvars"
 
 workflows:
   version: 2

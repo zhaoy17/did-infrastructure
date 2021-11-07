@@ -40,6 +40,11 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          command: >-
+            echo "credentials \"app.terraform.io\" {token =
+            \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
+          name: Create .terraformrc file locally
       - terraform/apply:
           path: << parameters.root-module-path >>
           var_file: "variables.tfvars"
